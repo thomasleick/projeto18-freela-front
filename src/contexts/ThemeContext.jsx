@@ -21,6 +21,7 @@ export const ThemeProvider = ({ children }) => {
       borderInput: "#B44FFF59",
       focusInputBackground: "#B44FFF10",
       focusInputBorder: "#B44FFF",
+      disabledInput: "#B44FFF30",
       //addToCartBg: "#FFF5F1",
       //addToCartHoverBg: "#ffeae2",
       //success: "lightgreen",

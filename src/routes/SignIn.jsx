@@ -4,28 +4,29 @@ import { ThreeDots } from "react-loader-spinner";
 import ErrWrapper from "../components/Err";
 import { axiosPrivate } from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import useInput from "../hooks/useInput";
 import useTheme from "../hooks/useTheme";
 
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const { setAuth } = useAuth();
+  const [email, resetEmail, emailAttribs] = useInput("email", "");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [clearErrMsg, setClearErrMsg] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const nameRef = useRef();
+  const emailRef = useRef();
   const errRef = useRef();
   const navigate = useNavigate();
   const { secondaryText } = useTheme().colors
 
   useEffect(() => {
-    nameRef.current.focus();
+    emailRef.current.focus();
   }, []);
 
   useEffect(() => {
     setErrMsg("");
-  }, [name, email, password, confirmPassword]);
+  }, [email, password]);
 
   const handleInputChange = (value, setFunction) => {
     !clearErrMsg && setClearErrMsg(true);
@@ -36,16 +37,8 @@ const SignUp = () => {
     event.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!name) {
-      setErrMsg("Preencha o campo Nome");
-      return;
-    }
     if (!emailRegex.test(email)) {
       setErrMsg("Email inválido");
-      return;
-    }
-    if (password !== confirmPassword) {
-      setErrMsg("Senhas não são iguais");
       return;
     }
     if (password.length < 6) {
@@ -53,25 +46,27 @@ const SignUp = () => {
       return;
     }
 
-    const body = { name, email, password, confirmPassword };
+    const body = { email, password };
 
     try {
       setIsLoading(true);
-      await axiosPrivate.post("/auth/signup", body);
-
-      navigate("/signin", { replace: true });
+      const response = await axiosPrivate.post("/auth/signin", body);
+      setAuth({
+        name: response.data.name,
+        email: response.data.email,
+        accessToken: response.data.accessToken,
+      });
+      navigate("/home", { replace: true });
     } catch (err) {
       console.log(err);
       if (!err?.response) {
         setErrMsg("Sem resposta do servidor");
       } else if (err.response?.status === 400) {
-        setErrMsg("Faltando nome, email e/ou senhas");
+        setErrMsg("Faltando email e/ou senha");
       } else if (err.response?.status === 401) {
-        setErrMsg("Não autorizado");
-      } else if (err.response?.status === 409) {
-        setErrMsg("E-mail em uso");
+        setErrMsg("Email e/ou senha inválido(a)");
       } else {
-        setErrMsg("Falha ao criar a conta");
+        setErrMsg("Falha ao tentar fazer login");
       }
       errRef.current.focus();
     } finally {
@@ -85,33 +80,17 @@ const SignUp = () => {
       </ErrWrapper>
       <form onSubmit={handleSubmit}>
         <input
-          placeholder="Nome"
-          value={name}
-          onChange={(e) => handleInputChange(e.target.value, setName)}
-          ref={nameRef}
-          disabled={isLoading}
-        />
-        <input
           placeholder="Email"
-          value={email}
-          onChange={(e) => handleInputChange(e.target.value, setEmail)}
           disabled={isLoading}
+          ref={emailRef}
+          {...emailAttribs}
         />
         <input
           placeholder="Senha"
+          type="password"
           value={password}
           onChange={(e) => handleInputChange(e.target.value, setPassword)}
           disabled={isLoading}
-          type="password"
-        />
-        <input
-          placeholder="Confirmar senha"
-          value={confirmPassword}
-          onChange={(e) =>
-            handleInputChange(e.target.value, setConfirmPassword)
-          }
-          disabled={isLoading}
-          type="password"
         />
         <button disabled={isLoading}>
           {isLoading ? (
@@ -128,7 +107,7 @@ const SignUp = () => {
               />
             </Span>
           ) : (
-            <h2>Criar Conta</h2>
+            <h2>Entrar</h2>
           )}
         </button>
       </form>

@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
         outline: none;
       }
       :disabled {
-        background-color: rgba(120, 177, 89, 0.12);
+        background-color: ${(props) => props.colors.disabledInput};
         color: #999;
         cursor: not-allowed;
         text-decoration: line-through;
@@ -57,7 +57,7 @@ const GlobalStyle = createGlobalStyle`
       cursor: pointer;
 
       &:disabled {
-        background-color: rgba(120, 177, 89, 0.12);
+        background-color: ${(props) => props.colors.disabledInput};
         color: #999;
         cursor: not-allowed;
         text-decoration: line-through;
