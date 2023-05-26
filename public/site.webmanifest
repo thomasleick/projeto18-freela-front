@@ -1,0 +1,14 @@
+{
+  "name": "AmazingTrips",
+  "short_name": "AmazingTrips",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "96x96",
+      "type": "image/ico"
+    }
+  ],
+  "theme_color": "#5d9040ff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
