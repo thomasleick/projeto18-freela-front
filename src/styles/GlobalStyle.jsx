@@ -21,13 +21,13 @@ const GlobalStyle = createGlobalStyle`
       height: 60px;
       text-indent: 22px;
       background: #ffffff;
-      border: 2px solid rgba(120, 177, 89, 0.25);
+      border: 2px solid ${(props) => props.colors.borderInput};
       box-shadow: 0px 4px 24px rgba(120, 177, 89, 0.12);
-      border-radius: 12px;
+      border-radius: 50px;
 
       :focus {
-        background-color: rgba(120, 177, 89, 0.015);
-        border: 2px solid rgba(120, 177, 89, 0.5);
+        background-color: ${(props) => props.colors.focusInputBackground};
+        border: 2px solid ${(props) => props.colors.focusInputBorder};
         outline: none;
       }
       :disabled {
@@ -49,10 +49,10 @@ const GlobalStyle = createGlobalStyle`
     button {
       width: 182px;
       height: 60px;
-      background: #5d9040bb;
-      border: 2px solid rgba(120, 177, 89, 0.25);
+      background: ${props => props.colors.secondaryText + "99"};
+      border: 2px solid ${(props) => props.colors.borderInput};
       box-shadow: 0px 4px 24px rgba(120, 177, 89, 0.12);
-      border-radius: 12px;
+      border-radius: 50px;
       margin-top: 51px;
       cursor: pointer;
 
@@ -75,8 +75,8 @@ const GlobalStyle = createGlobalStyle`
 
     button:not(:disabled):hover,
     button:not(:disabled):focus {
-      background: #5d9040ff;
-      border: 2px solid rgba(120, 177, 89, 0.5);
+      background: ${props => props.colors.secondaryText};
+      border: 2px solid ${(props) => props.colors.focusInputBorder};
       outline: none;
     }
 `;

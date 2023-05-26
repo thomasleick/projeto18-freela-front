@@ -4,6 +4,7 @@ import RedirectIfAuth from "./components/RedirectIfAuth";
 import RequireAuth from "./components/RequireAuth";
 import Layout from "./components/Layout";
 import Home from "./routes/Home";
+import SignUp from "./routes/SignUp";
 
 export default function App() {
   return (
@@ -15,10 +16,11 @@ export default function App() {
           <Route element={<RequireAuth />}>
             <Route path="/home" element={<Home />} />
           </Route>
+          */}
           <Route element={<RedirectIfAuth />}>
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
-          </Route> */}
+            <Route path="/signin" element={<SignUp />} />
+          </Route> 
         </Route>
       </Route>
     </Routes>
