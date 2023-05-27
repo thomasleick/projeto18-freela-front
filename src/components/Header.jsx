@@ -26,7 +26,7 @@ const Header = () => {
 };
 
 const HeaderContainer = styled.header`
-  height: 300px;
+  height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

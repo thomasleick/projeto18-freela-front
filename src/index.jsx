@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import ResetStyle from "./styles/ResetStyle";
 import GlobalStyle from "./styles/GlobalStyle";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { FiltersProvider } from "./contexts/FiltersProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -13,9 +14,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ThemeProvider>
       <GlobalStyle />
       <AuthProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <FiltersProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </FiltersProvider>
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>

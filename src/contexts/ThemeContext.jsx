@@ -8,23 +8,14 @@ export const ThemeProvider = ({ children }) => {
 
   const configColors = [
     {
-      //backgroundUpHeader: "#F53D2D",
-      //backgroundDownHeader: "#FF6533",
       background: "#FFFFFF",
-      //backgroundAside: "#F5F5F5",
       primary: "#B44FFF59",
-      //secondary: "#f53d2d0c",
       primaryText: "#000000",
       secondaryText: "#B44FFF",
-      //h1: "#333",
-      //logo: "#FFFFFF",
       borderInput: "#B44FFF59",
       focusInputBackground: "#B44FFF10",
       focusInputBorder: "#B44FFF",
       disabledInput: "#B44FFF30",
-      //addToCartBg: "#FFF5F1",
-      //addToCartHoverBg: "#ffeae2",
-      //success: "lightgreen",
     },
   ];
 
