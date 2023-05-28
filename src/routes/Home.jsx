@@ -9,9 +9,7 @@ import useFilters from "../hooks/useFilters";
 const Home = () => {
   const { filters } = useFilters();
   const [flights, setFlights] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const page = searchParams.get("page");
-  const category = searchParams.get("category");
+  const [page, setPage] = useState(1)
 
   const pageRef = useRef(undefined);
   const maxPageRef = useRef(undefined);
@@ -33,8 +31,10 @@ const Home = () => {
         maxPageRef.current = maxPage;
       })
       .catch(console.error);
-  }, [page, category]);
+  }, [page]);
+
   useEffect(() => {
+    
     const queryString = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -42,6 +42,7 @@ const Home = () => {
       )
       .join("&");
     const url = `/flights?page=1&${queryString}`;
+    console.log(url)
     axios
       .get(url)
       .then((res) => {
@@ -56,14 +57,14 @@ const Home = () => {
     <>
       <PageContainer>
         <FlightsGrid>
-          {flights.map((flight) => (
+          {flights?.map((flight) => (
             <FlightCard key={flight.flight_id} flight={flight} />
           ))}
         </FlightsGrid>
         <PageNav
           page={pageRef.current}
           maxPage={maxPageRef.current}
-          category={category}
+          setPage={setPage}
         />
       </PageContainer>
     </>

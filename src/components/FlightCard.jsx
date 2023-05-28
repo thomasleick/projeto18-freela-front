@@ -25,7 +25,7 @@ const ContainerLink = styled(Link)`
   flex-direction: column;
   background-color: ${props => props.colors.focusInputBackground};
   border: 1px solid transparent;
-  border-radius: 3px;
+  border-radius: 25px;
 
   & img {
     width: 100%;
@@ -51,6 +51,7 @@ const FlightDetail = styled.div`
   & h2 {
     flex: 1;
     font-weight: 800;
+    text-align: center;
   }
   & h3 {
     font-weight: 600;

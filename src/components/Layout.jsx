@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import styled from "styled-components";
 import SideMenu from "./SideMenu";
-import { useState } from "react";
 
 const Layout = () => {
   return (

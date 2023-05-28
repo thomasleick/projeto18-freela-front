@@ -8,19 +8,18 @@ import {
 import { Link } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 
-const PageNav = ({ page, maxPage, category }) => {
+const PageNav = ({ page, maxPage, setPage }) => {
   const { colors } = useTheme();
-  const categoryQuery = category ? `&category=${category}` : "";
 
   return (
     <Container>
       <PageNavButton colors={colors} disabled={page === 1}>
-        <Link to={`/?page=1${categoryQuery}`}>
+        <Link onClick={e => setPage(1)}>
           <BsChevronDoubleLeft />
         </Link>
       </PageNavButton>
       <PageNavButton colors={colors} disabled={page === 1}>
-        <Link to={`/?page=${page - 1}${categoryQuery}`}>
+      <Link onClick={e => setPage(page - 1)}>
           <BsChevronLeft />
         </Link>
       </PageNavButton>
@@ -30,12 +29,12 @@ const PageNav = ({ page, maxPage, category }) => {
         </span>
       )}
       <PageNavButton colors={colors} disabled={page === maxPage}>
-        <Link to={`/?page=${page + 1}${categoryQuery}`}>
+      <Link onClick={e => setPage(page + 1)}>
           <BsChevronRight />
         </Link>
       </PageNavButton>
       <PageNavButton colors={colors} disabled={page === maxPage}>
-        <Link to={`/?page=${maxPage}${categoryQuery}`}>
+      <Link onClick={e => setPage(maxPage)}>
           <BsChevronDoubleRight />
         </Link>
       </PageNavButton>
@@ -52,7 +51,6 @@ const Container = styled.div`
   box-sizing: content-box;
   height: 40px;
   padding: 1em;
-
   background-color: white;
   border-radius: 36px;
   box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);

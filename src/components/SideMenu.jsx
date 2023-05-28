@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Slider, TextField, Button } from "@mui/material";
+import Select from "react-select";
 import useFilters from "../hooks/useFilters";
+import useTheme from "../hooks/useTheme";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const SideMenu = () => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(5000);
-  const { setFilters } = useFilters();
-
+  const [citiesList, setCitiesList] = useState([]);
+  const [airlinesList, setAirlinesList] = useState([]);
+  const { setFilters, cities, airlines } = useFilters();
+  const [selectedCities, setSelectedCities] = useState([]);
+  const [selectedCitiesDestination, setSelectedCitiesDestination] = useState(
+    []
+  );
+  const [selectedAirlines, setSelectedAirlines] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const { colors } = useTheme();
   const handleMinPriceChange = (event) => {
     setMinPrice(Number(event.target.value));
   };
@@ -17,12 +29,172 @@ const SideMenu = () => {
   };
 
   const handleApplyFilter = () => {
-    console.log(`Min Price: ${minPrice}, Max Price: ${maxPrice}`);
-    setFilters({ minPrice, maxPrice })
+    const departureCities = selectedCities.map((city) => city.value);
+    const destinationCities = selectedCitiesDestination.map(
+      (city) => city.value
+    );
+    const airlineList = selectedAirlines.map((airline) => airline.value);
+    const newDate = selectedDate?.toISOString()?.slice(0, 10) || ""
+    setFilters({
+      minPrice,
+      maxPrice,
+      departureCities,
+      destinationCities,
+      airlineList,
+      selectedDate: newDate,
+    });
   };
+
+  const handleSelectionChange = (selectedOptions) => {
+    setSelectedCities(selectedOptions);
+  };
+  const handleSelectionChangeDestination = (selectedOptions) => {
+    setSelectedCitiesDestination(selectedOptions);
+  };
+  const handleSelectionChangeAirline = (selectedOptions) => {
+    setSelectedAirlines(selectedOptions);
+  };
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  useEffect(() => {
+    const newCities = cities?.cities?.map((city) => ({
+      value: city.city_id,
+      label: city.city_name,
+    }));
+    setCitiesList(newCities);
+  }, [cities]);
+  useEffect(() => {
+    const newAirlines = airlines?.airlines?.map((airline) => ({
+      value: airline.airline_id,
+      label: airline.airline_name,
+    }));
+    setAirlinesList(newAirlines);
+  }, [airlines]);
+
+  const customStyles = {
+    valueContainer: (provided, state) => ({
+      ...provided,
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      borderRadius: 25,
+      border: "2px solid",
+      boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
+      fontSize: 18,
+      textAlign: "center",
+
+      backgroundColor: state.isFocused
+        ? blendColors(colors.focusInputBackground, "#FFFFFF")
+        : "white",
+      borderColor: state.isFocused
+        ? `${colors.focusInputBorder} !important`
+        : "#ccc !important",
+      outline: state.isFocused && "none !important",
+      "&:hover": {
+        backgroundColor: blendColors(colors.focusInputBackground, "#FFFFFF"),
+      },
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      borderRadius: 15,
+      border: `2px solid ${colors.borderInput}`,
+      boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
+      fontSize: 18,
+      textAlign: "center",
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected
+        ? colors.focusInputBackground
+        : colors.background,
+      color: state.isSelected ? "lightgrey" : "black",
+      border: "none",
+      margin: 0,
+      "&:hover": {
+        backgroundColor: blendColors(colors.focusInputBackground, "#FFFFFF"),
+        color: colors.secondaryText,
+      },
+    }),
+    multiValue: (provided, state) => ({
+      ...provided,
+      backgroundColor: colors.focusInputBackground,
+      borderRadius: 25,
+    }),
+    multiValueLabel: (provided, state) => ({
+      ...provided,
+      color: `${colors.secondaryText}`,
+    }),
+    multiValueRemove: (provided, state) => ({
+      ...provided,
+      backgroundColor: blendColors(colors.secondaryText + "55", "#FFFFFF"),
+      borderRadius: "50%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      width: 20,
+      height: 20,
+      cursor: "pointer",
+      "&:hover": {
+        backgroundColor: colors.secondaryText,
+      },
+    }),
+  };
+  function blendColors(color, whiteColor) {
+    const alpha = parseInt(color.substr(7, 2), 16) / 255;
+    const r1 = parseInt(color.substr(1, 2), 16);
+    const g1 = parseInt(color.substr(3, 2), 16);
+    const b1 = parseInt(color.substr(5, 2), 16);
+
+    const r2 = parseInt(whiteColor.substr(1, 2), 16);
+    const g2 = parseInt(whiteColor.substr(3, 2), 16);
+    const b2 = parseInt(whiteColor.substr(5, 2), 16);
+
+    const r = Math.round(r1 * alpha + r2 * (1 - alpha));
+    const g = Math.round(g1 * alpha + g2 * (1 - alpha));
+    const b = Math.round(b1 * alpha + b2 * (1 - alpha));
+
+    return `rgb(${r},${g},${b})`;
+  }
+  useEffect(() => {}, []);
 
   return (
     <Aside>
+      <StyledSelect
+        isMulti
+        options={citiesList}
+        styles={customStyles}
+        value={selectedCities}
+        onChange={handleSelectionChange}
+        placeholder="Escolha as cidades de partida"
+      />
+      <StyledDatePicker
+        selected={selectedDate}
+        onChange={handleDateChange}
+        focusBackground={blendColors(colors.focusInputBackground, "#FFFFFF")}
+        dateFormat="dd/MM/yyyy"
+        placeholderText="Data de partida"
+      />
+      <StyledSelect
+        isMulti
+        options={citiesList}
+        styles={customStyles}
+        value={selectedCitiesDestination}
+        onChange={handleSelectionChangeDestination}
+        placeholder="Escolha os destinos"
+      />
+      <StyledSelect
+        isMulti
+        options={airlinesList}
+        styles={customStyles}
+        value={selectedAirlines}
+        onChange={handleSelectionChangeAirline}
+        placeholder="Escolha as linhas aéreas"
+      />
       <StyledTextField
         label="Valor mínimo"
         type="number"
@@ -53,6 +225,19 @@ const SideMenu = () => {
   );
 };
 
+const StyledDatePicker = styled(DatePicker)`
+  && {
+    height: 56px;
+    width: 210px;
+    margin: 5px 10px;
+    padding: 0; /* Reset padding */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+    :focus {
+      background-color: ${(props) => props.focusBackground};
+    }
+  }
+`;
+
 const Aside = styled.aside`
   background-color: #b44fff;
   height: calc(100% - 50px);
@@ -61,6 +246,7 @@ const Aside = styled.aside`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: scroll;
   * {
     margin: 5px 0;
   }
@@ -70,7 +256,6 @@ const StyledTextField = styled(TextField)`
   && {
     input {
       color: white;
-      
     }
     label {
       color: white;
@@ -78,28 +263,28 @@ const StyledTextField = styled(TextField)`
 
     && .MuiOutlinedInput-root {
       border-radius: 25px;
-      height: 56px; /* Set a fixed height */
-      width: 210px; /* Set a fixed width */
+      height: 56px;
+      width: 210px;
     }
 
     && .MuiOutlinedInput-input {
-      color: #ffffff; /* Change the input text color */
+      color: #ffffff;
       padding: 14px;
     }
 
     && .MuiOutlinedInput-notchedOutline {
-      border-color: #ffffff; /* Change the outline border color */
+      border-color: #ffffff;
       border-width: 2px;
     }
 
     &&:hover .MuiOutlinedInput-notchedOutline {
-      border-color: #ffffff; /* Change the outline border color on hover */
+      border-color: #ffffff;
     }
 
     &&.Mui-focused .MuiOutlinedInput-notchedOutline,
     &&:focus .MuiOutlinedInput-notchedOutline {
-      border-color: #ffffff; /* Change the outline border color when focused or input is focused */
-      box-shadow: 0 0 0 2px #ffffff40; /* Add a white box shadow when focused or input is focused */
+      border-color: #ffffff;
+      box-shadow: 0 0 0 2px #ffffff40;
     }
   }
 `;
@@ -116,8 +301,66 @@ const StyledButton = styled(Button)`
     color: #b44fff;
     border-radius: 25px;
   }
-  &&:focus, &&:hover {
+  &&:focus,
+  &&:hover {
     color: white;
+  }
+`;
+
+const StyledSelect = styled(Select)`
+  && {
+    width: 210px;
+    color: white;
+
+    &&.react-select__control {
+      background-color: white;
+      border-radius: 25px;
+      height: 56px;
+      width: 100%;
+      border-color: #ffffff;
+      border-width: 2px;
+      color: white;
+
+      &&:hover {
+        border-color: #ffffff;
+      }
+
+      &&:focus {
+        border-color: #ffffff;
+        box-shadow: 0 0 0 2px #ffffff40;
+      }
+    }
+
+    .react-select__placeholder {
+      color: white;
+    }
+
+    .react-select__single-value {
+      color: white;
+    }
+
+    .react-select__multi-value {
+      background-color: #ffffff;
+      color: #b44fff;
+      margin-right: 8px;
+      margin-top: -4px;
+      margin-bottom: 8px;
+      border-radius: 16px;
+
+      &:hover {
+        background-color: #ffffff;
+        color: #ffffff;
+      }
+    }
+
+    .react-select__multi-value__label,
+    .react-select__multi-value__remove {
+      color: #b44fff;
+    }
+
+    .react-select__indicator-separator {
+      background-color: #ffffff;
+    }
   }
 `;
 
