@@ -28,8 +28,7 @@ const Nav = () => {
             <H1 color={secondaryText}>Seja bem-vindo(a), {auth.name.split(" ")[0]}</H1>
           </div>
           <Right>
-            <Link to="/home">Home</Link>
-            <Link to="/">Ranking</Link>
+            <Link to="/">Home</Link>
             <Link onClick={handleLogout}>Sair</Link>
           </Right>
         </>
