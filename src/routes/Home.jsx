@@ -7,9 +7,9 @@ import PageNav from "../components/PageNav";
 import useFilters from "../hooks/useFilters";
 
 const Home = () => {
-  const { filters } = useFilters();
+  const { filters, setMenu } = useFilters();
   const [flights, setFlights] = useState([]);
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
 
   const pageRef = useRef(undefined);
   const maxPageRef = useRef(undefined);
@@ -34,7 +34,6 @@ const Home = () => {
   }, [page]);
 
   useEffect(() => {
-    
     const queryString = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -42,7 +41,7 @@ const Home = () => {
       )
       .join("&");
     const url = `/flights?page=1&${queryString}`;
-    console.log(url)
+    console.log(url);
     axios
       .get(url)
       .then((res) => {
@@ -53,6 +52,10 @@ const Home = () => {
       })
       .catch(console.error);
   }, [filters]);
+
+  useEffect(() => {
+    setMenu("flights");
+  }, []);
   return (
     <>
       <PageContainer>

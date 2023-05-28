@@ -12,7 +12,7 @@ const SideMenu = () => {
   const [maxPrice, setMaxPrice] = useState(5000);
   const [citiesList, setCitiesList] = useState([]);
   const [airlinesList, setAirlinesList] = useState([]);
-  const { setFilters, cities, airlines } = useFilters();
+  const { setFilters, cities, airlines, menu } = useFilters();
   const [selectedCities, setSelectedCities] = useState([]);
   const [selectedCitiesDestination, setSelectedCitiesDestination] = useState(
     []
@@ -34,7 +34,7 @@ const SideMenu = () => {
       (city) => city.value
     );
     const airlineList = selectedAirlines.map((airline) => airline.value);
-    const newDate = selectedDate?.toISOString()?.slice(0, 10) || ""
+    const newDate = selectedDate?.toISOString()?.slice(0, 10) || "";
     setFilters({
       minPrice,
       maxPrice,
@@ -72,6 +72,8 @@ const SideMenu = () => {
     }));
     setAirlinesList(newAirlines);
   }, [airlines]);
+  useEffect(() => {
+  }, []);
 
   const customStyles = {
     valueContainer: (provided, state) => ({
@@ -160,67 +162,73 @@ const SideMenu = () => {
 
     return `rgb(${r},${g},${b})`;
   }
-  useEffect(() => {}, []);
 
   return (
     <Aside>
-      <StyledSelect
-        isMulti
-        options={citiesList}
-        styles={customStyles}
-        value={selectedCities}
-        onChange={handleSelectionChange}
-        placeholder="Escolha as cidades de partida"
-      />
-      <StyledDatePicker
-        selected={selectedDate}
-        onChange={handleDateChange}
-        focusBackground={blendColors(colors.focusInputBackground, "#FFFFFF")}
-        dateFormat="dd/MM/yyyy"
-        placeholderText="Data de partida"
-      />
-      <StyledSelect
-        isMulti
-        options={citiesList}
-        styles={customStyles}
-        value={selectedCitiesDestination}
-        onChange={handleSelectionChangeDestination}
-        placeholder="Escolha os destinos"
-      />
-      <StyledSelect
-        isMulti
-        options={airlinesList}
-        styles={customStyles}
-        value={selectedAirlines}
-        onChange={handleSelectionChangeAirline}
-        placeholder="Escolha as linhas aéreas"
-      />
-      <StyledTextField
-        label="Valor mínimo"
-        type="number"
-        value={minPrice}
-        onChange={handleMinPriceChange}
-      />
-      <StyledTextField
-        label="Valor máximo"
-        type="number"
-        value={maxPrice}
-        onChange={handleMaxPriceChange}
-      />
-      <StyledSlider
-        value={[minPrice, maxPrice]}
-        onChange={(_, newValue) => {
-          setMinPrice(newValue[0]);
-          setMaxPrice(newValue[1]);
-        }}
-        min={0}
-        max={5000}
-        step={1}
-        valueLabelDisplay="auto"
-      />
-      <StyledButton variant="contained" onClick={handleApplyFilter}>
-        APLICAR FILTROS
-      </StyledButton>
+      {menu === "flights" && (
+        <>
+          <StyledSelect
+            isMulti
+            options={citiesList}
+            styles={customStyles}
+            value={selectedCities}
+            onChange={handleSelectionChange}
+            placeholder="Escolha as cidades de partida"
+          />
+          <StyledDatePicker
+            selected={selectedDate}
+            onChange={handleDateChange}
+            focusBackground={blendColors(
+              colors.focusInputBackground,
+              "#FFFFFF"
+            )}
+            dateFormat="dd/MM/yyyy"
+            placeholderText="Data de partida"
+          />
+          <StyledSelect
+            isMulti
+            options={citiesList}
+            styles={customStyles}
+            value={selectedCitiesDestination}
+            onChange={handleSelectionChangeDestination}
+            placeholder="Escolha os destinos"
+          />
+          <StyledSelect
+            isMulti
+            options={airlinesList}
+            styles={customStyles}
+            value={selectedAirlines}
+            onChange={handleSelectionChangeAirline}
+            placeholder="Escolha as linhas aéreas"
+          />
+          <StyledTextField
+            label="Valor mínimo"
+            type="number"
+            value={minPrice}
+            onChange={handleMinPriceChange}
+          />
+          <StyledTextField
+            label="Valor máximo"
+            type="number"
+            value={maxPrice}
+            onChange={handleMaxPriceChange}
+          />
+          <StyledSlider
+            value={[minPrice, maxPrice]}
+            onChange={(_, newValue) => {
+              setMinPrice(newValue[0]);
+              setMaxPrice(newValue[1]);
+            }}
+            min={0}
+            max={5000}
+            step={1}
+            valueLabelDisplay="auto"
+          />
+          <StyledButton variant="contained" onClick={handleApplyFilter}>
+            APLICAR FILTROS
+          </StyledButton>
+        </>
+      )}
     </Aside>
   );
 };
@@ -240,12 +248,13 @@ const StyledDatePicker = styled(DatePicker)`
 
 const Aside = styled.aside`
   background-color: #b44fff;
-  height: calc(100% - 50px);
+  height: calc(100dvh - 50px);
   width: 230px;
   padding: 25px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   overflow: scroll;
   * {
     margin: 5px 0;

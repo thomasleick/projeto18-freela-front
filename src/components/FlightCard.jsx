@@ -58,29 +58,4 @@ const FlightDetail = styled.div`
   }
 `;
 
-const PricesContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Price = styled.span`
-  color: ${(props) => props.colors.backgroundDownHeader};
-
-  &.discount {
-    color: inherit;
-    text-decoration: line-through;
-  }
-`;
-
-const Brand = styled.div`
-  width: fit-content;
-  padding: 5px;
-  color: white;
-  background-color: #00000099;
-  filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.15));
-  border-radius: 10px;
-  font-size: 13px;
-`;
-
 export default FlightCard;

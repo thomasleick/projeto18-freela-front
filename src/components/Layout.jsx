@@ -7,9 +7,9 @@ import SideMenu from "./SideMenu";
 const Layout = () => {
   return (
     <>
-      <Header />
+      <SideMenu />
       <Container>
-        <SideMenu />
+        <Header />
         <OutletContainer>
           <Outlet />
         </OutletContainer>
@@ -19,12 +19,16 @@ const Layout = () => {
 };
 
 const Container = styled.div`
-  height: calc(100dvh - 150px);
+  height: 100dvh;
+  width: calc(100vw - 250px);
   display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
 `;
 
 const OutletContainer = styled.div`
-  width: calc(100vw - 250px);
   overflow: scroll;
 `;
 export default Layout;
