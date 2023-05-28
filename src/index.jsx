@@ -7,19 +7,22 @@ import ResetStyle from "./styles/ResetStyle";
 import GlobalStyle from "./styles/GlobalStyle";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { FiltersProvider } from "./contexts/FiltersProvider";
+import { TripProvider } from "./contexts/TripProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ResetStyle />
     <ThemeProvider>
       <GlobalStyle />
-      <AuthProvider>
-        <FiltersProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </FiltersProvider>
-      </AuthProvider>
+      <TripProvider>
+        <AuthProvider>
+          <FiltersProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </FiltersProvider>
+        </AuthProvider>
+      </TripProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

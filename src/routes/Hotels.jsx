@@ -6,7 +6,7 @@ import FlightCard from "../components/FlightCard";
 import PageNav from "../components/PageNav";
 import useFilters from "../hooks/useFilters";
 
-const Home = () => {
+const Hotels = () => {
   const { filters, setMenu } = useFilters();
   const [flights, setFlights] = useState([]);
   const [page, setPage] = useState(1);
@@ -74,7 +74,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Hotels;
 
 const PageContainer = styled.div`
   display: flex;

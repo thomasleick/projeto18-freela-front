@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useInput from "../hooks/useInput";
 import useTheme from "../hooks/useTheme";
+import useFilters from "../hooks/useFilters";
 
 const SignUp = () => {
   const { setAuth } = useAuth();
@@ -15,13 +16,15 @@ const SignUp = () => {
   const [errMsg, setErrMsg] = useState("");
   const [clearErrMsg, setClearErrMsg] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const { setMenu } = useFilters();
   const emailRef = useRef();
   const errRef = useRef();
   const navigate = useNavigate();
-  const { secondaryText } = useTheme().colors
+  const { secondaryText } = useTheme().colors;
 
   useEffect(() => {
     emailRef.current.focus();
+    setMenu("");
   }, []);
 
   useEffect(() => {
@@ -56,7 +59,7 @@ const SignUp = () => {
         email: response.data.email,
         accessToken: response.data.accessToken,
       });
-      navigate("/home", { replace: true });
+      navigate("/", { replace: true });
     } catch (err) {
       console.log(err);
       if (!err?.response) {

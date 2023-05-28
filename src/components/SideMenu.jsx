@@ -6,6 +6,8 @@ import useFilters from "../hooks/useFilters";
 import useTheme from "../hooks/useTheme";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import FlightMenu from "./FlightMenu";
+import blendColors from "../utils/blendColors";
 
 const SideMenu = () => {
   const [minPrice, setMinPrice] = useState(0);
@@ -146,23 +148,7 @@ const SideMenu = () => {
       },
     }),
   };
-  function blendColors(color, whiteColor) {
-    const alpha = parseInt(color.substr(7, 2), 16) / 255;
-    const r1 = parseInt(color.substr(1, 2), 16);
-    const g1 = parseInt(color.substr(3, 2), 16);
-    const b1 = parseInt(color.substr(5, 2), 16);
-
-    const r2 = parseInt(whiteColor.substr(1, 2), 16);
-    const g2 = parseInt(whiteColor.substr(3, 2), 16);
-    const b2 = parseInt(whiteColor.substr(5, 2), 16);
-
-    const r = Math.round(r1 * alpha + r2 * (1 - alpha));
-    const g = Math.round(g1 * alpha + g2 * (1 - alpha));
-    const b = Math.round(b1 * alpha + b2 * (1 - alpha));
-
-    return `rgb(${r},${g},${b})`;
-  }
-
+  
   return (
     <Aside>
       {menu === "flights" && (
@@ -229,6 +215,7 @@ const SideMenu = () => {
           </StyledButton>
         </>
       )}
+      {menu === "flight" && <FlightMenu />}
     </Aside>
   );
 };

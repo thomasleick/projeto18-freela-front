@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { axiosPrivate } from "../api/axios";
 import { useEffect } from "react";
 import styled from "styled-components";
@@ -19,7 +19,6 @@ const Flight = () => {
   const { id } = useParams();
   const { setMenu } = useFilters();
   const { focusInputBackground } = useTheme().colors;
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getFlight = async () => {
