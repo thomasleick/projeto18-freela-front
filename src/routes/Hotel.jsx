@@ -5,13 +5,7 @@ import { axiosPrivate } from "../api/axios";
 import { useEffect } from "react";
 import styled from "styled-components";
 import useFilters from "../hooks/useFilters";
-import formatCurrency from "../utils/formatCurrency";
 import useTheme from "../hooks/useTheme";
-import ticket from "../assets/ticket.png";
-import airline from "../assets/airline.png";
-import departure from "../assets/departure.png";
-import arrival from "../assets/arrival.png";
-import price from "../assets/price.png";
 import useTrip from "../hooks/useTrip";
 
 const Hotel = () => {
