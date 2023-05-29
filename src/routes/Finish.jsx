@@ -7,6 +7,7 @@ import { useState } from "react";
 import FlightCard from "../components/FlightCard";
 import HotelCard from "../components/HotelCard";
 import styled from "styled-components";
+import FinishSkeleton from "../components/skeletonLoaders/FinishSkeleton";
 
 const Finish = () => {
   const { setMenu } = useFilters();
@@ -37,7 +38,9 @@ const Finish = () => {
   }, []);
   return (
     <div>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && (
+          <FinishSkeleton />
+      )}
       {!isLoading && !showComponents && <p>Ocorreu algum problema!</p>}
       {!isLoading && showComponents && (
         <Container>
