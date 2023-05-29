@@ -7,7 +7,7 @@ const FlightCard = ({ flight }) => {
   const { colors } = useTheme();
   const price = formatCurrency(flight.price);
   return (
-    <ContainerLink colors={colors} to={`/flight/${flight.flight_id}`}>
+    <ContainerLink colors={colors} to={`/flights/${flight.flight_id}`}>
       <FlightDetail>
         <h2>{flight.airline_name}</h2>
         <h4>De: {flight.departure_city_name}</h4> 

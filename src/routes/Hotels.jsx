@@ -61,7 +61,7 @@ const Hotels = () => {
     setFirstLoad(false)
     let queryString = ""
     if (choosenCity) {
-      queryString += `&cities=${choosenCity.value}`
+      queryString += `cities=${choosenCity.value}`
       
     }
   const url = `/hotels?page=${page ?? 1}&${queryString}`;

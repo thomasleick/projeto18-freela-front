@@ -8,6 +8,7 @@ import SignUp from "./routes/SignUp";
 import SignIn from "./routes/SignIn";
 import Flight from "./routes/Flight";
 import Hotels from "./routes/Hotels";
+import Hotel from "./routes/Hotel";
 
 export default function App() {
   return (
@@ -15,8 +16,9 @@ export default function App() {
        <Route element={<PersistLogin />}>
         <Route element={<Layout />}>
         <Route path="/" element={<Flights />} />
-        <Route path="/flight/:id" element={<Flight />} />
-        <Route path="/Hotels" element={<Hotels />} />
+        <Route path="/flights/:id" element={<Flight />} />
+        <Route path="/hotels" element={<Hotels />} />
+        <Route path="/hotels/:id" element={<Hotel />} />
           {/* 
           <Route element={<RequireAuth />}>
             <Route path="/home" element={<Home />} />

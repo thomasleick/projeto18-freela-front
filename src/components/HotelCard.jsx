@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 const HotelCard = ({ hotel }) => {
   const { colors } = useTheme();
   const price = formatCurrency(hotel.price_per_night);
+  
   return (
-    <ContainerLink colors={colors} to={`/hotel/${hotel.hotel_id}`}>
+    <ContainerLink colors={colors} to={`/hotels/${hotel.hotel_id}`}>
       <HotelDetail>
         <h2>{hotel.hotel_name}</h2>
         <p>{hotel.description}</p>

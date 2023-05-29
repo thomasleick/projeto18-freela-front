@@ -62,10 +62,9 @@ const Flights = () => {
     setFirstLoad(false)
     let queryString = "";
     if (choosenCity) {
-      queryString += `&destinationCities=${choosenCity.value}`;
+      queryString += `destinationCities=${choosenCity.value}`;
     }
-    const url = `/flights?page=1&${queryString}`;
-    console.log(url);
+    const url = `/flights?page=${page ?? 1}&${queryString}`;
     axios
       .get(url)
       .then((res) => {
