@@ -4,7 +4,7 @@ import styled from "styled-components";
 import useTheme from "../../hooks/useTheme";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const FinishSkeleton = () => {
+const CardSkeleton = () => {
   const { focusInputBackground } = useTheme().colors;
   return (
     <Div>
@@ -34,4 +34,4 @@ const StyledSkeleton = styled(Skeleton)`
   background: linear-gradient(to right, #F5f5f555 87.267%, #f5f5f5ff 12.733%);
   z-index: -1;
 `;
-export default FinishSkeleton;
+export default CardSkeleton;

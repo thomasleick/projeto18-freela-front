@@ -7,6 +7,7 @@ import styled from "styled-components";
 import useFilters from "../hooks/useFilters";
 import useTheme from "../hooks/useTheme";
 import useTrip from "../hooks/useTrip";
+import HotelSkeleton from "../components/skeletonLoaders/HotelSkeleton";
 
 const Hotel = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +36,7 @@ const Hotel = () => {
 
   return (
     <Container>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <HotelSkeleton />}
       {!isLoading && hotel && (
         <>
           <H1 fontColor={secondaryText}>{hotel.hotel_name}</H1>
@@ -87,6 +88,7 @@ const PhotoContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   img {
     width: calc((100vw - 300px) / 4 - 25px);
     margin: 0 12.5px;

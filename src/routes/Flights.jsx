@@ -66,7 +66,6 @@ const Flights = () => {
   useEffect(() => {
     setIsLoading(true);
     setMenu("flights");
-    setFirstLoad(false);
     let queryString = "";
     if (choosenCity) {
       queryString += `destinationCities=${choosenCity.value}`;
@@ -79,6 +78,7 @@ const Flights = () => {
         setFlights(flights);
         pageRef.current = page;
         maxPageRef.current = maxPage;
+        setFirstLoad(false);
       })
       .catch(console.error)
       .finally(setIsLoading(false));

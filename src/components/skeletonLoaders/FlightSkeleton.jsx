@@ -1,5 +1,4 @@
 import React from "react";
-import formatCurrency from "../../utils/formatCurrency";
 import ticket from "../../assets/ticket.png";
 import airline from "../../assets/airline.png";
 import departure from "../../assets/departure.png";
@@ -7,11 +6,12 @@ import arrival from "../../assets/arrival.png";
 import price from "../../assets/price.png";
 import styled from "styled-components";
 import Skeleton from "react-loading-skeleton";
+import useTheme from "../../hooks/useTheme";
 
 const FlightSkeleton = () => {
-    const flight = {}
+    const { focusInputBackground } = useTheme().colors;
   return (
-    <>
+    <Container background={focusInputBackground}>
       <Div>
         <img src={ticket} alt="Passagem" />
       </Div>
@@ -31,9 +31,12 @@ const FlightSkeleton = () => {
         <Img src={price} alt="Valor" />
         <StyledSkeleton count={1} width={100} height={20} />
       </Span>
-    </>
+    </Container>
   );
 };
+const Container = styled.div`
+
+`
 const Div = styled.div`
   display: flex;
   align-items: center;
