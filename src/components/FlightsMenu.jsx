@@ -7,20 +7,22 @@ import DatePicker from "react-datepicker";
 import blendColors from "../utils/blendColors";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
+import useTrip from "../hooks/useTrip";
 
 const FlightsMenu = () => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(5000);
+  const { choosenCity } = useTrip();
   const [citiesList, setCitiesList] = useState([]);
   const [airlinesList, setAirlinesList] = useState([]);
   const { setFilters, cities, airlines } = useFilters();
   const [selectedCities, setSelectedCities] = useState([]);
-  const [selectedCitiesDestination, setSelectedCitiesDestination] = useState(
-    []
-  );
+  const [selectedCitiesDestination, setSelectedCitiesDestination] =
+    useState(choosenCity);
   const [selectedAirlines, setSelectedAirlines] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const { colors } = useTheme();
+
   const handleMinPriceChange = (event) => {
     setMinPrice(Number(event.target.value));
   };

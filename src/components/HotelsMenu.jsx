@@ -3,16 +3,19 @@ import { Slider, TextField, Button } from "@mui/material";
 import Select from "react-select";
 import useFilters from "../hooks/useFilters";
 import useTheme from "../hooks/useTheme";
+import useTrip from "../hooks/useTrip";
 import blendColors from "../utils/blendColors";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 
+
 const HotelsMenu = () => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000);
+  const { choosenCity } = useTrip();
   const [citiesList, setCitiesList] = useState([]);
   const { setFilters, cities } = useFilters();
-  const [selectedCities, setSelectedCities] = useState([]);
+  const [selectedCities, setSelectedCities] = useState([choosenCity]);
   const { colors } = useTheme();
   const handleMinPriceChange = (event) => {
     setMinPrice(Number(event.target.value));

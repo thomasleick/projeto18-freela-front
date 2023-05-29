@@ -29,6 +29,6 @@ const Container = styled.div`
 `;
 
 const OutletContainer = styled.div`
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 export default Layout;

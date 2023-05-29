@@ -9,7 +9,7 @@ import useTheme from "../hooks/useTheme";
 const SideMenu = () => {
   const { menu } = useFilters();
   const { secondaryText } = useTheme().colors;
-  
+
   return (
     <Aside backgroundColor={secondaryText}>
       {menu === "flights" && <FlightsMenu />}
@@ -28,7 +28,8 @@ const Aside = styled.aside`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   * {
     margin: 5px 0;
   }

@@ -1,20 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useSearchParams } from "react-router-dom";
 import axios from "../api/axios";
 import HotelCard from "../components/HotelCard";
 import PageNav from "../components/PageNav";
 import useFilters from "../hooks/useFilters";
+import useTrip from "../hooks/useTrip";
 
 const Hotels = () => {
   const { filters, setMenu } = useFilters();
   const [hotels, setHotels] = useState([]);
   const [page, setPage] = useState(1);
+  const { choosenCity } = useTrip();
+  const [firstLoad, setFirstLoad] = useState(true)
 
   const pageRef = useRef(undefined);
   const maxPageRef = useRef(undefined);
 
   useEffect(() => {
+    if (firstLoad) return
     const queryString = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -34,6 +37,7 @@ const Hotels = () => {
   }, [page]);
 
   useEffect(() => {
+    if (firstLoad) return
     const queryString = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -54,6 +58,22 @@ const Hotels = () => {
 
   useEffect(() => {
     setMenu("hotels");
+    setFirstLoad(false)
+    let queryString = ""
+    if (choosenCity) {
+      queryString += `&cities=${choosenCity.value}`
+      
+    }
+  const url = `/hotels?page=${page ?? 1}&${queryString}`;
+  axios
+    .get(url)
+    .then((res) => {
+      const { page, maxPage, hotels } = res.data;
+      setHotels(hotels);
+      pageRef.current = page;
+      maxPageRef.current = maxPage;
+    })
+    .catch(console.error);
   }, []);
   return (
     <>

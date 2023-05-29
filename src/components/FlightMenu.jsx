@@ -6,19 +6,23 @@ import useTheme from "../hooks/useTheme";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useTrip from "../hooks/useTrip";
 import blendColors from "../utils/blendColors";
+import useFilters from "../hooks/useFilters";
 
 const FlightMenu = () => {
   const { focusInputBackground } = useTheme().colors;
-  const { setChoosenFlight } = useTrip();
+  const { setChoosenFlight, setChoosenCity, cardCity } = useTrip();
+  const { cities } = useFilters();
   const { id } = useParams();
   const navigate = useNavigate();
-
   const handleSaveFlight = () => {
+    const city = cities.cities.find((city) => city.city_name === cardCity);
     setChoosenFlight(id);
+    setChoosenCity({ value: city.city_id, label: city.city_name });
     navigate("/hotels");
   };
 
   const spanBackground = blendColors(focusInputBackground, "#FFFFFF");
+
   return (
     <Container spanBackground={spanBackground}>
       <span onClick={handleSaveFlight}>

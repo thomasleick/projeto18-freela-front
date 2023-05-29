@@ -1,20 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useSearchParams } from "react-router-dom";
 import axios from "../api/axios";
 import FlightCard from "../components/FlightCard";
 import PageNav from "../components/PageNav";
 import useFilters from "../hooks/useFilters";
+import useTrip from "../hooks/useTrip";
 
 const Flights = () => {
   const { filters, setMenu } = useFilters();
   const [flights, setFlights] = useState([]);
   const [page, setPage] = useState(1);
+  const [firstLoad, setFirstLoad] = useState(true);
+  const { choosenCity } = useTrip();
 
   const pageRef = useRef(undefined);
   const maxPageRef = useRef(undefined);
 
   useEffect(() => {
+    if (firstLoad) return;
     const queryString = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -34,6 +37,7 @@ const Flights = () => {
   }, [page]);
 
   useEffect(() => {
+    if (firstLoad) return;
     const queryString = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -55,6 +59,22 @@ const Flights = () => {
 
   useEffect(() => {
     setMenu("flights");
+    setFirstLoad(false)
+    let queryString = "";
+    if (choosenCity) {
+      queryString += `&destinationCities=${choosenCity.value}`;
+    }
+    const url = `/flights?page=1&${queryString}`;
+    console.log(url);
+    axios
+      .get(url)
+      .then((res) => {
+        const { page, maxPage, flights } = res.data;
+        setFlights(flights);
+        pageRef.current = page;
+        maxPageRef.current = maxPage;
+      })
+      .catch(console.error);
   }, []);
   return (
     <>

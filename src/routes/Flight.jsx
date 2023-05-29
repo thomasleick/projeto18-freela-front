@@ -12,6 +12,7 @@ import airline from "../assets/airline.png";
 import departure from "../assets/departure.png";
 import arrival from "../assets/arrival.png";
 import price from "../assets/price.png";
+import useTrip from "../hooks/useTrip";
 
 const Flight = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,12 +20,14 @@ const Flight = () => {
   const { id } = useParams();
   const { setMenu } = useFilters();
   const { focusInputBackground } = useTheme().colors;
+  const { setCardCity } = useTrip();
 
   useEffect(() => {
     const getFlight = async () => {
       try {
         const response = await axiosPrivate.get(`/flights/${id}`);
         setFlight(response.data);
+        setCardCity(response.data.destination_city_name)
       } catch (err) {
         console.log(err);
       } finally {
