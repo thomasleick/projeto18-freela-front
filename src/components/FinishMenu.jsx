@@ -3,7 +3,7 @@ import styled from "styled-components";
 import save from "../assets/save.png";
 import cancel from "../assets/cancel.png";
 import useTheme from "../hooks/useTheme";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useTrip from "../hooks/useTrip";
 import blendColors from "../utils/blendColors";
 import useFilters from "../hooks/useFilters";
