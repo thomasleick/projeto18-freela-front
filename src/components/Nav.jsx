@@ -4,11 +4,13 @@ import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useTheme from "../hooks/useTheme";
+import useTrip from "../hooks/useTrip";
 
 const Nav = () => {
   const { auth, setAuth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
   const { secondaryText } = useTheme().colors;
+  const { choosenFlight, choosenHotel } = useTrip();
 
   const handleLogout = async (event) => {
     event.preventDefault();
@@ -32,6 +34,7 @@ const Nav = () => {
           <Right>
             <Link to="/">Passagens Aéreas</Link>
             <Link to="/hotels">Hotéis</Link>
+            {choosenFlight && choosenHotel && <Link to="/finish">Escolhidos</Link>}
             <Link onClick={handleLogout}>Sair</Link>
           </Right>
         </>
