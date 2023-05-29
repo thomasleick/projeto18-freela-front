@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
 import axios from "../api/axios";
-import FlightCard from "../components/FlightCard";
+import HotelCard from "../components/HotelCard";
 import PageNav from "../components/PageNav";
 import useFilters from "../hooks/useFilters";
 
 const Hotels = () => {
   const { filters, setMenu } = useFilters();
-  const [flights, setFlights] = useState([]);
+  const [hotels, setHotels] = useState([]);
   const [page, setPage] = useState(1);
 
   const pageRef = useRef(undefined);
@@ -21,12 +21,12 @@ const Hotels = () => {
           `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
       )
       .join("&");
-    const url = `/flights?page=${page ?? 1}&${queryString}`;
+    const url = `/hotels?page=${page ?? 1}&${queryString}`;
     axios
       .get(url)
       .then((res) => {
-        const { page, maxPage, flights } = res.data;
-        setFlights(flights);
+        const { page, maxPage, hotels } = res.data;
+        setHotels(hotels);
         pageRef.current = page;
         maxPageRef.current = maxPage;
       })
@@ -40,13 +40,12 @@ const Hotels = () => {
           `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
       )
       .join("&");
-    const url = `/flights?page=1&${queryString}`;
-    console.log(url);
+    const url = `/hotels?page=1&${queryString}`;
     axios
       .get(url)
       .then((res) => {
-        const { page, maxPage, flights } = res.data;
-        setFlights(flights);
+        const { page, maxPage, hotels } = res.data;
+        setHotels(hotels);
         pageRef.current = page;
         maxPageRef.current = maxPage;
       })
@@ -54,16 +53,16 @@ const Hotels = () => {
   }, [filters]);
 
   useEffect(() => {
-    setMenu("flights");
+    setMenu("hotels");
   }, []);
   return (
     <>
       <PageContainer>
-        <FlightsGrid>
-          {flights?.map((flight) => (
-            <FlightCard key={flight.flight_id} flight={flight} />
+        <HotelsGrid>
+          {hotels?.map((hotel) => (
+            <HotelCard key={hotel.hotel_id} hotel={hotel} />
           ))}
-        </FlightsGrid>
+        </HotelsGrid>
         <PageNav
           page={pageRef.current}
           maxPage={maxPageRef.current}
@@ -83,7 +82,7 @@ const PageContainer = styled.div`
   margin-bottom: calc(72px + 1em);
 `;
 
-const FlightsGrid = styled.main`
+const HotelsGrid = styled.main`
   flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
