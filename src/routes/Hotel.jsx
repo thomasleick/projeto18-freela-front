@@ -21,7 +21,7 @@ const Hotel = () => {
       try {
         const response = await axiosPrivate.get(`/hotels/${id}`);
         setHotel(response.data);
-        setCardCity(response.data.destination_city_name);
+        setCardCity(response.data.city_name);
       } catch (err) {
         console.log(err);
       } finally {

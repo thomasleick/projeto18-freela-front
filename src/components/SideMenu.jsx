@@ -5,6 +5,8 @@ import FlightsMenu from "./FlightsMenu";
 import FlightMenu from "./FlightMenu";
 import HotelsMenu from "./HotelsMenu";
 import useTheme from "../hooks/useTheme";
+import HotelMenu from "./HotelMenu";
+import FinishMenu from "./FinishMenu";
 
 const SideMenu = () => {
   const { menu } = useFilters();
@@ -15,6 +17,8 @@ const SideMenu = () => {
       {menu === "flights" && <FlightsMenu />}
       {menu === "flight" && <FlightMenu />}
       {menu === "hotels" && <HotelsMenu />}
+      {menu === "hotel" && <HotelMenu />}
+      {menu === "finish" && <FinishMenu />}
     </Aside>
   );
 };

@@ -9,6 +9,7 @@ import SignIn from "./routes/SignIn";
 import Flight from "./routes/Flight";
 import Hotels from "./routes/Hotels";
 import Hotel from "./routes/Hotel";
+import Finish from "./routes/Finish";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/flights/:id" element={<Flight />} />
           <Route path="/hotels" element={<Hotels />} />
           <Route path="/hotels/:id" element={<Hotel />} />
+          <Route path="/finish" element={<Finish />} />
           {/* 
           <Route element={<RequireAuth />}>
             <Route path="/home" element={<Home />} />
