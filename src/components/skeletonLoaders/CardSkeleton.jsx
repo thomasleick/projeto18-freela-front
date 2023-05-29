@@ -9,7 +9,7 @@ const FinishSkeleton = () => {
   return (
     <Div>
       <Container color={focusInputBackground}>
-        <StyledSkeleton count={5} width={200} height={13} />
+        <StyledSkeleton count={5} width={190} height={13} />
       </Container>
     </Div>
   );
@@ -29,8 +29,8 @@ const Container = styled.section`
 
 `;
 const StyledSkeleton = styled(Skeleton)`
-  border-radius: 12px;
-  margin: 15px 0;
+  border-radius: 25px;
+  margin: 15px 5px;
   background: linear-gradient(to right, #F5f5f555 87.267%, #f5f5f5ff 12.733%);
   z-index: -1;
 `;

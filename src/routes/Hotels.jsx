@@ -5,11 +5,13 @@ import HotelCard from "../components/HotelCard";
 import PageNav from "../components/PageNav";
 import useFilters from "../hooks/useFilters";
 import useTrip from "../hooks/useTrip";
+import CardSkeleton from "../components/skeletonLoaders/CardSkeleton";
 
 const Hotels = () => {
   const { filters, setMenu } = useFilters();
   const [hotels, setHotels] = useState([]);
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const { choosenCity } = useTrip();
   const [firstLoad, setFirstLoad] = useState(true);
 
@@ -18,6 +20,7 @@ const Hotels = () => {
 
   useEffect(() => {
     if (firstLoad) return;
+    setIsLoading(true);
     const queryString = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -33,11 +36,13 @@ const Hotels = () => {
         pageRef.current = page;
         maxPageRef.current = maxPage;
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(setIsLoading(false));
   }, [page]);
 
   useEffect(() => {
     if (firstLoad) return;
+    setIsLoading(true);
     const queryString = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -53,10 +58,12 @@ const Hotels = () => {
         pageRef.current = page;
         maxPageRef.current = maxPage;
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(setIsLoading(false));
   }, [filters]);
 
   useEffect(() => {
+    setIsLoading(true);
     setMenu("hotels");
     setFirstLoad(false);
     let queryString = "";
@@ -72,15 +79,21 @@ const Hotels = () => {
         pageRef.current = page;
         maxPageRef.current = maxPage;
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(setIsLoading(false));
   }, []);
   return (
     <>
       <PageContainer>
         <HotelsGrid>
-          {hotels?.map((hotel) => (
-            <HotelCard key={hotel.hotel_id} hotel={hotel} />
-          ))}
+          {isLoading &&
+            Array(15)
+              .fill()
+              .map((_, index) => <CardSkeleton key={index} />)}
+          {!isLoading &&
+            hotels?.map((hotel) => (
+              <HotelCard key={hotel.hotel_id} hotel={hotel} />
+            ))}
         </HotelsGrid>
         <PageNav
           page={pageRef.current}
