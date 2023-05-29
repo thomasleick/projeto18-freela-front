@@ -10,10 +10,30 @@ const FlightCard = ({ flight }) => {
     <ContainerLink colors={colors} to={`/flights/${flight.flight_id}`}>
       <FlightDetail>
         <h2>{flight.airline_name}</h2>
-        <h4>De: {flight.departure_city_name}</h4> 
+        <h4>De: {flight.departure_city_name}</h4>
         <h4>para: {flight.destination_city_name}</h4>
-        <h4>Partida: {new Date(flight.departure_time).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(',', '')}</h4>
-        <h4>Chegada: {new Date(flight.arrival_time).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(',', '')}</h4>
+        <h4>
+          Partida:{" "}
+          {new Date(flight.departure_time)
+            .toLocaleString("pt-BR", {
+              day: "2-digit",
+              month: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+            .replace(",", "")}
+        </h4>
+        <h4>
+          Chegada:{" "}
+          {new Date(flight.arrival_time)
+            .toLocaleString("pt-BR", {
+              day: "2-digit",
+              month: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+            .replace(",", "")}
+        </h4>
         <h3>{price}</h3>
       </FlightDetail>
     </ContainerLink>
@@ -23,7 +43,7 @@ const FlightCard = ({ flight }) => {
 const ContainerLink = styled(Link)`
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.colors.focusInputBackground};
+  background-color: ${(props) => props.colors.focusInputBackground};
   border: 1px solid transparent;
   border-radius: 25px;
 

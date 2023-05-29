@@ -5,7 +5,7 @@ import { ThreeCircles } from "react-loader-spinner";
 import useTheme from "../hooks/useTheme";
 
 const LoadingPage = () => {
-  const { primary } = useTheme().colors
+  const { primary } = useTheme().colors;
   return (
     <>
       <Header />

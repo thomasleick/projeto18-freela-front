@@ -8,7 +8,6 @@ import blendColors from "../utils/blendColors";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 
-
 const HotelsMenu = () => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000);

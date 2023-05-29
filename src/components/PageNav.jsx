@@ -14,12 +14,12 @@ const PageNav = ({ page, maxPage, setPage }) => {
   return (
     <Container>
       <PageNavButton colors={colors} disabled={page === 1}>
-        <Link onClick={e => setPage(1)}>
+        <Link onClick={(e) => setPage(1)}>
           <BsChevronDoubleLeft />
         </Link>
       </PageNavButton>
       <PageNavButton colors={colors} disabled={page === 1}>
-      <Link onClick={e => setPage(page - 1)}>
+        <Link onClick={(e) => setPage(page - 1)}>
           <BsChevronLeft />
         </Link>
       </PageNavButton>
@@ -29,12 +29,12 @@ const PageNav = ({ page, maxPage, setPage }) => {
         </span>
       )}
       <PageNavButton colors={colors} disabled={page === maxPage}>
-      <Link onClick={e => setPage(page + 1)}>
+        <Link onClick={(e) => setPage(page + 1)}>
           <BsChevronRight />
         </Link>
       </PageNavButton>
       <PageNavButton colors={colors} disabled={page === maxPage}>
-      <Link onClick={e => setPage(maxPage)}>
+        <Link onClick={(e) => setPage(maxPage)}>
           <BsChevronDoubleRight />
         </Link>
       </PageNavButton>

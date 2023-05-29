@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 const HotelCard = ({ hotel }) => {
   const { colors } = useTheme();
   const price = formatCurrency(hotel.price_per_night);
-  
+
   return (
     <ContainerLink colors={colors} to={`/hotels/${hotel.hotel_id}`}>
       <HotelDetail>
         <h2>{hotel.hotel_name}</h2>
         <p>{hotel.description}</p>
-        <h4>{hotel.city_name}</h4> 
+        <h4>{hotel.city_name}</h4>
         <h3>{price}</h3>
       </HotelDetail>
     </ContainerLink>
@@ -22,7 +22,7 @@ const HotelCard = ({ hotel }) => {
 const ContainerLink = styled(Link)`
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.colors.focusInputBackground};
+  background-color: ${(props) => props.colors.focusInputBackground};
   border: 1px solid transparent;
   border-radius: 25px;
 
@@ -54,7 +54,7 @@ const HotelDetail = styled.div`
   & h3 {
     font-weight: 600;
   }
-  & p{
+  & p {
     text-align: center;
   }
 `;

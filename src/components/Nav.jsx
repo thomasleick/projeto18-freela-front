@@ -25,7 +25,9 @@ const Nav = () => {
       {auth?.accessToken ? (
         <>
           <div>
-            <H1 color={secondaryText}>Seja bem-vindo(a), {auth.name.split(" ")[0]}</H1>
+            <H1 color={secondaryText}>
+              Seja bem-vindo(a), {auth.name.split(" ")[0]}
+            </H1>
           </div>
           <Right>
             <Link to="/">Passagens Aéreas</Link>
@@ -49,15 +51,14 @@ const NavContainer = styled.nav`
   width: calc(100% - 200px);
   display: flex;
   justify-content: ${(props) => (props.token ? "space-between" : "flex-end")};
-
 `;
 const H1 = styled.h1`
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 18px;
-    color: ${props => props.color};
-`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: ${(props) => props.color};
+`;
 const Right = styled.div`
   font-style: normal;
   font-weight: 400;
@@ -74,7 +75,7 @@ const Right = styled.div`
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
-    color: ${props => props.color};
+    color: ${(props) => props.color};
   }
 `;
 

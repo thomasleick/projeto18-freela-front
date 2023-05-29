@@ -27,7 +27,7 @@ const Flight = () => {
       try {
         const response = await axiosPrivate.get(`/flights/${id}`);
         setFlight(response.data);
-        setCardCity(response.data.destination_city_name)
+        setCardCity(response.data.destination_city_name);
       } catch (err) {
         console.log(err);
       } finally {
@@ -45,7 +45,9 @@ const Flight = () => {
         {isLoading && <p>Loading...</p>}
         {!isLoading && flight && (
           <>
-          <Div><img src={ticket} alt="Passagem" /></Div>
+            <Div>
+              <img src={ticket} alt="Passagem" />
+            </Div>
             <Span>
               <Img src={airline} alt="Linha aérea" />
               <h2>{flight.airline_name}</h2>
@@ -110,7 +112,7 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 30px;
-`
+`;
 
 const Span = styled.span`
   display: flex;

@@ -49,7 +49,7 @@ const GlobalStyle = createGlobalStyle`
     button {
       width: 182px;
       height: 60px;
-      background: ${props => props.colors.secondaryText + "99"};
+      background: ${(props) => props.colors.secondaryText + "99"};
       border: 2px solid ${(props) => props.colors.borderInput};
       box-shadow: 0px 4px 24px rgba(120, 177, 89, 0.12);
       border-radius: 50px;
@@ -75,7 +75,7 @@ const GlobalStyle = createGlobalStyle`
 
     button:not(:disabled):hover,
     button:not(:disabled):focus {
-      background: ${props => props.colors.secondaryText};
+      background: ${(props) => props.colors.secondaryText};
       border: 2px solid ${(props) => props.colors.focusInputBorder};
       outline: none;
     }

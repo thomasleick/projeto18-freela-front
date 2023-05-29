@@ -17,7 +17,7 @@ const Header = () => {
     <HeaderContainer>
       <Nav />
       <LogoContainer color={secondaryText} onClick={handleNavigate}>
-      <Img inverted={true} src={amazingTrips} alt="Amazing Trips" />
+        <Img inverted={true} src={amazingTrips} alt="Amazing Trips" />
         <h1>Amazing Trips</h1>
         <Img src={amazingTrips} alt="Amazing Trips" />
       </LogoContainer>
@@ -33,7 +33,7 @@ const HeaderContainer = styled.header`
   align-items: center;
 `;
 const Img = styled.img`
-  ${props => props.inverted && "transform: scaleX(-1);"}
+  ${(props) => props.inverted && "transform: scaleX(-1);"}
 `;
 const LogoContainer = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ const LogoContainer = styled.div`
     font-size: 64px;
     line-height: 80px;
     margin: 0 20px;
-    color: ${props => props.color};
+    color: ${(props) => props.color};
   }
 `;
 

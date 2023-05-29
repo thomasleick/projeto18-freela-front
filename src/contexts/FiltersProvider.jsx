@@ -8,7 +8,7 @@ export const FiltersProvider = ({ children }) => {
   const [filters, setFilters] = useState({ minPrice: 0, maxPrice: 5000 });
   const [cities, setCities] = useState([]);
   const [airlines, setAirlines] = useState([]);
-  const [menu, setMenu] = useState("flights")
+  const [menu, setMenu] = useState("flights");
 
   useEffect(() => {
     const getFilters = async () => {
@@ -21,7 +21,9 @@ export const FiltersProvider = ({ children }) => {
   }, []);
 
   return (
-    <FiltersContext.Provider value={{ filters, setFilters, cities, airlines, menu, setMenu }}>
+    <FiltersContext.Provider
+      value={{ filters, setFilters, cities, airlines, menu, setMenu }}
+    >
       {children}
     </FiltersContext.Provider>
   );

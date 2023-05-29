@@ -59,7 +59,7 @@ const Flights = () => {
 
   useEffect(() => {
     setMenu("flights");
-    setFirstLoad(false)
+    setFirstLoad(false);
     let queryString = "";
     if (choosenCity) {
       queryString += `destinationCities=${choosenCity.value}`;

@@ -17,7 +17,7 @@ const SignUp = () => {
   const nameRef = useRef();
   const errRef = useRef();
   const navigate = useNavigate();
-  const { secondaryText } = useTheme().colors
+  const { secondaryText } = useTheme().colors;
 
   useEffect(() => {
     nameRef.current.focus();

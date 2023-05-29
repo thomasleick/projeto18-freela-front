@@ -13,12 +13,12 @@ import Hotel from "./routes/Hotel";
 export default function App() {
   return (
     <Routes>
-       <Route element={<PersistLogin />}>
+      <Route element={<PersistLogin />}>
         <Route element={<Layout />}>
-        <Route path="/" element={<Flights />} />
-        <Route path="/flights/:id" element={<Flight />} />
-        <Route path="/hotels" element={<Hotels />} />
-        <Route path="/hotels/:id" element={<Hotel />} />
+          <Route path="/" element={<Flights />} />
+          <Route path="/flights/:id" element={<Flight />} />
+          <Route path="/hotels" element={<Hotels />} />
+          <Route path="/hotels/:id" element={<Hotel />} />
           {/* 
           <Route element={<RequireAuth />}>
             <Route path="/home" element={<Home />} />
@@ -27,7 +27,7 @@ export default function App() {
           <Route element={<RedirectIfAuth />}>
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
-          </Route> 
+          </Route>
         </Route>
       </Route>
     </Routes>

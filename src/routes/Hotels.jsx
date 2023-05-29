@@ -11,13 +11,13 @@ const Hotels = () => {
   const [hotels, setHotels] = useState([]);
   const [page, setPage] = useState(1);
   const { choosenCity } = useTrip();
-  const [firstLoad, setFirstLoad] = useState(true)
+  const [firstLoad, setFirstLoad] = useState(true);
 
   const pageRef = useRef(undefined);
   const maxPageRef = useRef(undefined);
 
   useEffect(() => {
-    if (firstLoad) return
+    if (firstLoad) return;
     const queryString = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -37,7 +37,7 @@ const Hotels = () => {
   }, [page]);
 
   useEffect(() => {
-    if (firstLoad) return
+    if (firstLoad) return;
     const queryString = Object.entries(filters)
       .map(
         ([key, value]) =>
@@ -58,22 +58,21 @@ const Hotels = () => {
 
   useEffect(() => {
     setMenu("hotels");
-    setFirstLoad(false)
-    let queryString = ""
+    setFirstLoad(false);
+    let queryString = "";
     if (choosenCity) {
-      queryString += `cities=${choosenCity.value}`
-      
+      queryString += `cities=${choosenCity.value}`;
     }
-  const url = `/hotels?page=${page ?? 1}&${queryString}`;
-  axios
-    .get(url)
-    .then((res) => {
-      const { page, maxPage, hotels } = res.data;
-      setHotels(hotels);
-      pageRef.current = page;
-      maxPageRef.current = maxPage;
-    })
-    .catch(console.error);
+    const url = `/hotels?page=${page ?? 1}&${queryString}`;
+    axios
+      .get(url)
+      .then((res) => {
+        const { page, maxPage, hotels } = res.data;
+        setHotels(hotels);
+        pageRef.current = page;
+        maxPageRef.current = maxPage;
+      })
+      .catch(console.error);
   }, []);
   return (
     <>

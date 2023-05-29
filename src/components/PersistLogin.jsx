@@ -26,8 +26,6 @@ const PersistLogin = () => {
     return () => (isMounted = false);
   }, []);
 
-  return (
-    <>{isLoading ? <LoadingPage /> : <Outlet />}</>
-  );
+  return <>{isLoading ? <LoadingPage /> : <Outlet />}</>;
 };
 export default PersistLogin;
