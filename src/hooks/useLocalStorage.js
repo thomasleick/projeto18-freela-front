@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 
 const getLocalValue = (key, initValue) => {
-  //SSR Next.js
   if (typeof window === "undefined") return initValue;
 
-  // if a value is already store
-  const localValue = JSON.parse(localStorage.getItem(key));
-  if (localValue) return localValue;
+  const localValue = localStorage.getItem(key);
+  if (localValue !== null && localValue !== undefined) {
+    try {
+      return JSON.parse(localValue);
+    } catch (error) {
+      console.error("Error parsing localStorage value:", error);
+    }
+  }
 
-  // return a result of a function
-  if (initValue instanceof Function) return initValue();
+  if (typeof initValue === "function") return initValue();
 
   return initValue;
 };

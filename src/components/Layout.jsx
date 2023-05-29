@@ -29,7 +29,8 @@ const Container = styled.div`
 `;
 
 const OutletContainer = styled.div`
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   height: calc(100dvh - 150px);
 `;
 export default Layout;

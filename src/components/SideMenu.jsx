@@ -32,7 +32,7 @@ const Aside = styled.aside`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   * {
     margin: 5px 0;
