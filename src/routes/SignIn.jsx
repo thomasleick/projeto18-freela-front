@@ -78,7 +78,7 @@ const SignUp = () => {
   };
   return (
     <main>
-      <ErrWrapper status={errMsg ? "errmsg" : "offscreen"} posTop="255px">
+      <ErrWrapper status={errMsg ? "errmsg" : "offscreen"} posTop="325px">
         <span ref={errRef}>{errMsg}</span>
       </ErrWrapper>
       <form onSubmit={handleSubmit}>
