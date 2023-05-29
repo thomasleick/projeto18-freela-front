@@ -13,6 +13,7 @@ import departure from "../assets/departure.png";
 import arrival from "../assets/arrival.png";
 import price from "../assets/price.png";
 import useTrip from "../hooks/useTrip";
+import FlightSkeleton from "../components/skeletonLoaders/FlightSkeleton";
 
 const Flight = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +43,7 @@ const Flight = () => {
   return (
     <Container>
       <FlightContainer background={focusInputBackground}>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <FlightSkeleton />}
         {!isLoading && flight && (
           <>
             <Div>
