@@ -3,25 +3,22 @@ import styled from "styled-components";
 import save from "../assets/save.png";
 import cancel from "../assets/cancel.png";
 import useTheme from "../hooks/useTheme";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useTrip from "../hooks/useTrip";
 import blendColors from "../utils/blendColors";
-import useFilters from "../hooks/useFilters";
 
 const HotelMenu = () => {
   const { focusInputBackground } = useTheme().colors;
-  const { setChoosenHotel, setChoosenCity, cardCity, choosenFlight } = useTrip();
-  const { cities } = useFilters();
-  const { id } = useParams();
+  const { setChoosenHotel, setChoosenCity } = useTrip();
   const navigate = useNavigate();
-  const handleSaveHotel = () => {
-    const city = cities.cities.find((city) => city.city_name === cardCity);
-    setChoosenHotel(id);
-    setChoosenCity({ value: city.city_id, label: city.city_name });
-    if(choosenFlight) {
-        navigate("/finish");
-        return;
-    }
+
+  const handleFinish = () => {
+    navigate("/");
+  };
+
+  const handleCleanLocalStorage = () => {
+    setChoosenHotel("");
+    setChoosenCity("");
     navigate("/");
   };
 
@@ -29,14 +26,14 @@ const HotelMenu = () => {
 
   return (
     <Container spanBackground={spanBackground}>
-      <span onClick={handleSaveHotel}>
+      <span onClick={handleFinish}>
         <Img src={save} alt="Salvar" />
         <p>Finalizar</p>
       </span>
-        <span>
-          <Img src={cancel} alt="Voltar" />
-          <p>Limpar escolhas</p>
-        </span>
+      <span onClick={handleCleanLocalStorage}>
+        <Img src={cancel} alt="Limpar" />
+        <p>Limpar escolhas</p>
+      </span>
     </Container>
   );
 };
